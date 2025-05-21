@@ -32,6 +32,12 @@ def login():
     access_token = create_access_token(identity=user['username'])
     return jsonify(access_token=access_token)
 
+# Protected Example
+@app.route('/protected', methods=['GET'])
+@jwt_required()
+def protected():
+    current_user = get_jwt_identity()
+    return jsonify(logged_in_as=current_user)
 
 
 @app.route('/menu', methods=['POST'])
